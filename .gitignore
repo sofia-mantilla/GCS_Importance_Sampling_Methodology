@@ -5,10 +5,5 @@
 __pycache__/
 *.pyc
 
-# Large data files
-data/**/*.npy
-data/**/*.mat
-data/**/*.pkl
-
 # System files
 .DS_Store
