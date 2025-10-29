@@ -108,17 +108,15 @@ The process begins with generating an initial batch of subsurface model realizat
 
 ---
 
-## 📤 Output Summary
-
-The reconstructed IS realizations (**m′⁽ˡ⁾**) — including top-surface and porosity fields — are exported as `.npy` and `.mat` files for the next stage.
-These serve as the **inputs** for `Final_Script_after_IS_Simulation.ipynb`, which performs weighting, ESS computation, and leakage probability estimation.
+### Example of the Reservoir's Structural and Porosity Realizations
 
 <p align="center">
   <img src="figures/Fig_1.png" alt="Example of structural and porosity realizations" width="950"/>
 </p>
 
-**Figure 2. Example of reservoir model realizations used to evaluate CO₂ leakage risk.**
-Panels show variations in top-surface structure and porosity across different Naïve Monte Carlo (MC) samples.
+**Figure 2. (#1 in paper)** Example reservoir model realizations used to evaluate CO₂ leakage risk.  
+Panels show variations in **top-surface structure** and **porosity** across different Naïve Monte Carlo (MC) samples.  
+These realizations are the **inputs** to MRST flow simulations that produce leakage/saturation outcomes; this notebook analyzes those **simulation outputs** rather than executing the simulations themselves.
 
 ---
 
@@ -130,7 +128,7 @@ The IS ensemble achieves the same confidence level as the full Monte Carlo analy
   <img src="figures/Fig_5.png" alt="Comparison of NMC and IS convergence" width="950"/>
 </p>
 
-**Figure 3. Convergence of Naïve Monte Carlo vs IS-weighted leakage probability with Chebyshev confidence bands.**
+**Figure 3. (# 5 in paper) Convergence of Naïve Monte Carlo vs IS-weighted leakage probability with Chebyshev confidence bands.**
 Blue shaded regions represent NMC confidence bounds, while the purple region shows IS uncertainty convergence.
 IS reaches the prescribed safety confidence threshold using **~8× fewer simulations**.
 
@@ -139,9 +137,7 @@ IS reaches the prescribed safety confidence threshold using **~8× fewer simulat
 ## 📦 Data
 
 Input files required to reproduce the workflow are located in:
-`data/Inputs_for_Final_Script_after_IS_Simulation/`
-
-If large `.npy`, `.mat`, or `.pkl` files are not included, refer to `data/README_data.txt` for download instructions.
+`data/Inputs_for_Final_Script_after_IS_Simulation/` and `data/Inputs_for_Final_Script_after_Naive_Simulation/`.
 
 ---
 
@@ -157,7 +153,7 @@ If you use this repository, please cite:
 ## 👩‍🔬 Author and License
 
 **Author:** Sofia Mantilla Salas
-**Affiliation:** Stanford University — Doerr School of Sustainability
+**Affiliation:** Stanford University — Doerr School of Sustainability - Mineral X
 
 📧 **Email:** [sofiams@stanford.edu](mailto:sofiams@stanford.edu)
 🔗 **GitHub:** [sofia-mantilla](https://github.com/sofia-mantilla)
