@@ -1,5 +1,5 @@
 ---
-# Quantifying CO₂ Leakage Risk — Importance Sampling Methodology
+# Quantifying CO₂ Leakage Risk when Planning Safe Geological Carbon Storage using Importance Sampling of Failure Probabilities
 
 This repository reproduces the workflow described in the paper  
 **_“Quantifying CO₂ Leakage Risk when Planning Safe Geological Carbon Storage using Importance Sampling of Failure Probabilities.”_**
@@ -46,6 +46,9 @@ GCS_IS_Folder/
 ├── requirements.txt
 ├── .gitignore
 └── README.md
+└── .vscode/
+└── .gitattributes
+└── setup.py
 
 ````
 
