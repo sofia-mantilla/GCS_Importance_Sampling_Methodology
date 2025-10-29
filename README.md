@@ -10,7 +10,7 @@ It provides a **reproducible Jupyter-based implementation** of the statistical a
 
 ## 🧭 Purpose
 
-This project is designed to make the paper’s methodology **transparent and replicable**.  
+This project is designed to make the paper’s methodology **transparent and reproducible**.  
 It implements all steps:
 
 1. **Naïve Monte Carlo baseline** — loading of reservoir realizations ($m_1$, $m_2$) for top-surface geometry and porosity.  
@@ -40,6 +40,8 @@ GCS_IS_Folder/
 │   ├── Fig_1.png
 │   ├── Fig_2.png
 │   └── Fig_5.png
+│
+├── GDSA_Light/
 │
 ├── requirements.txt
 ├── .gitignore
