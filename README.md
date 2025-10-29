@@ -4,8 +4,7 @@
 This repository reproduces the workflow described in the paper  
 **_“Quantifying CO₂ Leakage Risk when Planning Safe Geological Carbon Storage using Importance Sampling of Failure Probabilities.”_**
 
-It provides a **reproducible Jupyter-based implementation** of the statistical and computational framework developed to evaluate rare CO₂ leakage events in geological carbon storage (GCS).  
-The workflow integrates **Naïve Monte Carlo (NMC)** simulations, **dimensionality reduction (PCA/DGSA)**, and **Importance Sampling (IS)** to achieve accurate leakage-risk estimates with dramatically fewer forward simulations.
+It provides a **reproducible Jupyter-based implementation** of the statistical and computational framework developed to evaluate rare CO₂ leakage events in geological carbon storage (GCS). The workflow integrates **Naïve Monte Carlo (NMC)** simulations, **dimensionality reduction (PCA/DGSA)**, and **Importance Sampling (IS)** to achieve accurate leakage-risk estimates with dramatically fewer forward simulations.
 
 ---
 
@@ -14,7 +13,7 @@ The workflow integrates **Naïve Monte Carlo (NMC)** simulations, **dimensionali
 This project is designed to make the paper’s methodology **transparent and replicable**.  
 It implements all steps:
 
-1. **Naïve Monte Carlo baseline** — generation of reservoir realizations ($m_1$, $m_2$) for top-surface geometry and porosity.  
+1. **Naïve Monte Carlo baseline** — loading of reservoir realizations ($m_1$, $m_2$) for top-surface geometry and porosity.  
 2. **Dimensionality reduction and sensitivity screening** (PCA + DGSA).  
 3. **Construction of IS alternative distribution** $g(\mathbf{m})$ via Multivariate Kernel Density Estimation (MKDE).  
 4. **Reconstruction of IS realizations** $m′^{(l)}$ for forward MRST flow simulations.  
@@ -34,12 +33,8 @@ GCS_IS_Folder/
 │   └── Final_Script_after_IS_Simulation.ipynb
 │
 ├── data/
+│   └── Inputs_for_Final_Script_after_Naive_Simulation/
 │   └── Inputs_for_Final_Script_after_IS_Simulation/
-│       ├── f_m_*.pkl, g_m_*.pkl
-│       ├── RS_failure_sensitive_scores.npy
-│       ├── h_1_models_leaking*.npy
-│       ├── sum_hi_failures_*.npy
-│       └── README_data.txt
 │
 ├── figures/
 │   ├── Fig_1.png
@@ -76,8 +71,8 @@ jupyter lab
 
 Run the notebooks in order:
 
-1. **Final_Script_after_Naive_Simulation.ipynb** — pre-simulation setup: PCA, DGSA, MKDE, IS resampling.
-2. **Final_Script_after_IS_Simulation.ipynb** — post-simulation weighting, ESS, and Chebyshev confidence analysis.
+1. **Final_Script_after_Naive_Simulation.ipynb** — pre-IS-simulation setup: PCA, DGSA, MKDE, IS resampling.
+2. **Final_Script_after_IS_Simulation.ipynb** — post-IS-simulation weighting, ESS, and Chebyshev confidence analysis.
 
 ---
 
@@ -88,7 +83,7 @@ Run the notebooks in order:
        alt="Workflow for estimating CO₂ leakage probability" width="950"/>
 </p>
 
-**Figure 1. Workflow for estimating CO₂ leakage probability with Naïve Monte Carlo (MC) and Importance Sampling (IS).**
+**Figure 1. (#2 in paper) Workflow for estimating CO₂ leakage probability with Naïve Monte Carlo (MC) and Importance Sampling (IS).**
 The process begins with generating an initial batch of subsurface model realizations **m⁽ˡ⁾** via naïve MC. Each realization is forward simulated to obtain prediction variables **h⁽ˡ⁾**, from which the running leakage probability **p̂ₙ** and Chebyshev confidence bands are computed. If the desired confidence interval relative to the prescribed safety threshold **p_risk** is not reached, evaluate whether additional naïve MC simulations (**L_add**) are feasible. If not, IS is applied by constructing an alternative distribution **g(m)** that focuses sampling on leakage-prone scenarios (**h₁⁽ˡ⁾ = 1**). IS samples are reweighted to recover unbiased estimates, and the effective sample size (ESS) is tracked in the subsequent stage.
 
 ---
@@ -97,19 +92,19 @@ The process begins with generating an initial batch of subsurface model realizat
 
 | Step | Description                                                                                                                                                                                                          | Status            |
 | ---- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------- |
-| 1    | Load model inputs sampled by Naïve Monte Carlo (**m₁: top surfaces**, **m₂: porosity**)                                                                                                                              | ✅                 |
-| 2    | Load failure/no failure outcomes **h₁⁽ˡ⁾** obtained from forward simulations                                                                                                                                         | ✅                 |
-| 3    | Estimate running failure probability and compute Chebyshev confidence bands                                                                                                                                          | ✅                 |
-| 4    | Estimate required number of simulations using Chebyshev’s Inequality and check if the confidence interval relative to the prescribed safety threshold **p_risk** has been reached with the initial **L** simulations | ✅                 |
-| 5    | Check if Importance Sampling (IS) is necessary                                                                                                                                                                       | ✅                 |
-| 5.1  | Apply PCA on **m₁** and **m₂** to reduce dimensionality                                                                                                                                                              | ✅                 |
-| 5.2  | Perform DGSA on PCA scores to identify sensitive components                                                                                                                                                          | ✅                 |
-| 5.3  | Fit MKDE (Multivariate Kernel Density Estimation) on sensitive PC scores to construct the IS alternative distribution **g(m)**                                                                                       | ✅                 |
-| 5.4  | Resample new PC scores from IS alternative distribution **g(m)**                                                                                                                                                     | ✅                 |
-| 5.5  | Reconstruct model variables (**m₁′**, **m₂′**) with the resampled PC scores                                                                                                                                          | ✅                 |
-| 6    | Compute IS weights                                                                                                                                                                                                   | ⏩ *next notebook* |
-| 7    | Estimate IS running leakage probability and Chebyshev band using ESS                                                                                                                                                 | ⏩ *next notebook* |
-| 8    | Check if desired confidence interval relative to the prescribed safety threshold **p_risk** has been reached                                                                                                         | ⏩ *next notebook* |
+| 1    | Load model inputs sampled by Naïve Monte Carlo (**m₁: top surfaces**, **m₂: porosity**)                                                                                                                              | Final_Script_after_Naive_Simulation.ipynb|
+| 2    | Load failure/no failure outcomes **h₁⁽ˡ⁾** obtained from forward simulations                                                                                                                                         | Final_Script_after_Naive_Simulation.ipynb|
+| 3    | Estimate running failure probability and compute Chebyshev confidence bands                                                                                                                                          | Final_Script_after_Naive_Simulation.ipynb|
+| 4    | Estimate required number of simulations using Chebyshev’s Inequality and check if the confidence interval relative to the prescribed safety threshold **p_risk** has been reached with the initial **L** simulations | Final_Script_after_Naive_Simulation.ipynb|
+| 5    | Check if Importance Sampling (IS) is necessary                                                                                                                                                                       | Final_Script_after_Naive_Simulation.ipynb|
+| 5.1  | Apply PCA on **m₁** and **m₂** to reduce dimensionality                                                                                                                                                              | Final_Script_after_Naive_Simulation.ipynb|
+| 5.2  | Perform DGSA on PCA scores to identify sensitive components                                                                                                                                                          | Final_Script_after_Naive_Simulation.ipynb|
+| 5.3  | Fit MKDE (Multivariate Kernel Density Estimation) on sensitive PC scores to construct the IS alternative distribution **g(m)**                                                                                       | Final_Script_after_Naive_Simulation.ipynb|
+| 5.4  | Resample new PC scores from IS alternative distribution **g(m)**                                                                                                                                                     | Final_Script_after_Naive_Simulation.ipynb|
+| 5.5  | Reconstruct model variables (**m₁′**, **m₂′**) with the resampled PC scores                                                                                                                                          | Final_Script_after_Naive_Simulation.ipynb|
+| 6    | Compute IS weights                                                                                                                                                                                                   | Final_Script_after_IS_Simulation |
+| 7    | Estimate IS running leakage probability and Chebyshev band using ESS                                                                                                                                                 | Final_Script_after_IS_Simulation |
+| 8    | Check if desired confidence interval relative to the prescribed safety threshold **p_risk** has been reached                                                                                                         | Final_Script_after_IS_Simulation |
 
 ---
 
