@@ -1,0 +1,27 @@
+cff-version: 1.2.0
+message: "If you use this code or data, please cite this repository and the associated paper."
+title: "GCS Importance Sampling Methodology: Reproducible Workflow for CO₂ Leakage Probability Estimation"
+authors:
+  - family-names: Mantilla Salas
+    given-names: Sofia
+    orcid: "https://orcid.org/0009-0002-1423-8370"  
+  - family-names: Kloeckner
+    given-names: Jonas
+  - family-names: Yin
+    given-names: David Zhen
+  - family-names: Zechner
+    given-names: Markus
+  - family-names: Caers
+    given-names: Jef
+version: "1.0.0"
+date-released: 2025-10-29
+repository-code: "https://github.com/sofia-mantilla/GCS_Importance_Sampling_Methodology"
+doi: "10.5281/zenodo.xxxxxxx"   # ← Replace with your Zenodo DOI once minted
+keywords:
+  - carbon
+  - storage
+  - sampling
+  - uncertainty
+  - risk
+  - reproducibility
+license: MIT
