@@ -1,5 +1,5 @@
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.17408589.svg)](https://doi.org/10.5281/zenodo.17408589)
+[![DOI](https://zenodo.org/badge/1085533276.svg)](https://doi.org/10.5281/zenodo.17480588)
 ---
 # Quantifying CO₂ Leakage Risk when Planning Safe Geological Carbon Storage using Importance Sampling of Failure Probabilities
 
@@ -154,7 +154,7 @@ If you use this repository or reproduce any part of the workflow, please cite:
 
 > **Mantilla-Salas, S., Kloeckner, J., Yin, D. Z., Zechner, M., & Caers, J. (2025).**
 > *Quantifying CO₂ Leakage Risk when Planning Safe Geological Carbon Storage using Importance Sampling of Failure Probabilities.*
-> **Zenodo.** [https://doi.org/10.5281/zenodo.17408589](https://doi.org/10.5281/zenodo.17408589)
+> **Zenodo.** (https://zenodo.org/badge/1085533276.svg)](https://doi.org/10.5281/zenodo.17480588)
 
 ---
 
