@@ -16,7 +16,7 @@ authors:
 version: "1.0.0"
 date-released: 2025-10-29
 repository-code: "https://github.com/sofia-mantilla/GCS_Importance_Sampling_Methodology"
-doi: "10.5281/zenodo.xxxxxxx"   # ← Replace with your Zenodo DOI once minted
+doi: "10.5281/zenodo.17408589"   
 keywords:
   - carbon
   - storage
