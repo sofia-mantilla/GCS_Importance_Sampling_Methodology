@@ -1,12 +1,12 @@
 
 [![DOI](https://zenodo.org/badge/1085533276.svg)](https://doi.org/10.5281/zenodo.17480588)
 ---
-# Quantifying CO₂ Leakage Risk when Planning Safe Geological Carbon Storage using Importance Sampling of Failure Probabilities
+# Importance Sampling for Rare-Event Estimation under Spatial Uncertainty: Application to CO₂ Leakage
 
-This repository reproduces the workflow described in the paper  
-**_“Quantifying CO₂ Leakage Risk when Planning Safe Geological Carbon Storage using Importance Sampling of Failure Probabilities.”_**
+This repository reproduces the open-source workflow accompanying the paper  
+**_“Importance Sampling for Rare-Event Estimation under Spatial Uncertainty: Application to CO₂ Leakage.”_**
 
-It provides a **reproducible Jupyter-based implementation** of the statistical and computational framework developed to evaluate rare CO₂ leakage events in geological carbon storage (GCS). The workflow integrates **Naïve Monte Carlo (NMC)** simulations, **dimensionality reduction (PCA/DGSA)**, and **Importance Sampling (IS)** to achieve accurate leakage-risk estimates with dramatically fewer forward simulations.
+It provides a **reproducible Jupyter-based implementation** of a methodology for **importance sampling under spatial uncertainty**, designed for cases where uncertain inputs are **high-dimensional spatial fields** rather than low-dimensional parameter vectors. The workflow combines **Naïve Monte Carlo (NMC)**, **PCA-based dimensionality reduction**, **DGSA sensitivity screening**, **MKDE-based proposal construction**, and **importance weighting with Chebyshev confidence bounds** to estimate rare-event probabilities more efficiently.
 
 ---
 
@@ -153,7 +153,7 @@ Input files required to reproduce the workflow are located in:
 If you use this repository or reproduce any part of the workflow, please cite:
 
 > **Mantilla-Salas, S., Kloeckner, J., Yin, D. Z., Zechner, M., & Caers, J. (2025).**
-> *Quantifying CO₂ Leakage Risk when Planning Safe Geological Carbon Storage using Importance Sampling of Failure Probabilities.*
+> *Importance Sampling for Rare-Event Estimation under Spatial Uncertainty: Application to CO₂ Leakage.*
 > **Zenodo.** [![DOI](https://zenodo.org/badge/1085533276.svg)](https://doi.org/10.5281/zenodo.17480588)
 
 ---
