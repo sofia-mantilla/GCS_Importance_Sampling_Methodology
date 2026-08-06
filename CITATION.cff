@@ -4,7 +4,7 @@ title: "GCS Importance Sampling Methodology: Reproducible Workflow for CO₂ Lea
 authors:
   - family-names: Mantilla Salas
     given-names: Sofia
-    orcid: "https://orcid.org/0009-0002-1423-8370"  
+    orcid: "https://orcid.org/0009-0002-1423-8370"
   - family-names: Kloeckner
     given-names: Jonas
   - family-names: Yin
@@ -13,10 +13,10 @@ authors:
     given-names: Markus
   - family-names: Caers
     given-names: Jef
-version: "1.0.0"
-date-released: 2025-10-29
+version: "2.0.0"
+date-released: 2026-08-06
 repository-code: "https://github.com/sofia-mantilla/GCS_Importance_Sampling_Methodology"
-doi: "10.5281/zenodo.17408589"   
+doi: "10.5281/zenodo.17480588"
 keywords:
   - carbon
   - storage

@@ -4,6 +4,21 @@
 # Importance Sampling for Rare-Event Estimation under Spatial Uncertainty: Application to Estimating CO₂ Leakage Risk in Carbon Capture and Sequestration
 
 
+> ## Version 2 (2026)
+> Version 2 revises the importance-weight computation (joint densities evaluated at the
+> sampled points) and adds a defensive-mixture combined estimator with weights bounded by
+> 1/α, a 25-replicate replication study, stress tests, and out-of-sample MRST validation
+> scripts. The canonical workflow is `Final_Script_after_IS_Simulation_CORRECTED.ipynb`
+> together with `revision_tools.py`; the v1 notebook is retained for archival completeness
+> and its analysis is superseded by this version.
+> Headline results: the 95% certification guarantee was never violated across 25
+> independent replicates and 6 fresh out-of-sample MRST validation batches; the typical
+> certification-cost advantage over naïve Monte Carlo is **≈1.5–2×** at the studied risk
+> margin, growing as the margin tightens or the event becomes rarer.
+> See `RELEASE_NOTES_v2.md` for the changelog and the paper for details.
+
+---
+
 This repository reproduces the open-source workflow accompanying the paper  
 **_“Importance Sampling for Rare-Event Estimation under Spatial Uncertainty: Application to Estimating CO₂ Leakage Risk in Carbon Capture and Sequestration.”_**
 
@@ -22,7 +37,7 @@ It implements all steps:
 4. **Reconstruction of IS realizations** $m′^{(l)}$ for forward MRST flow simulations.  
 5. **Post-simulation weighting and analysis** — computation of importance weights, effective sample size (ESS), and Chebyshev confidence bounds.  
 
-The final output quantifies how many fewer simulations are required by IS to reach the same confidence level as the full Monte Carlo ensemble.
+The final output quantifies how many fewer simulations are required by the combined naïve+IS estimator to certify the leakage probability below a prescribed risk threshold, reported as a distribution across replicates rather than a single run.
 
 ---
 
@@ -33,7 +48,14 @@ The final output quantifies how many fewer simulations are required by IS to rea
 GCS_IS_Folder/
 ├── notebooks/
 │   ├── Final_Script_after_Naive_Simulation.ipynb
-│   └── Final_Script_after_IS_Simulation.ipynb
+│   ├── Final_Script_after_IS_Simulation.ipynb          (v1 — superseded; see note in first cell)
+│   ├── Final_Script_after_IS_Simulation_CORRECTED.ipynb  (v2 — canonical)
+│   ├── revision_tools.py        (corrected weights, defensive mixture, variance report, bounds)
+│   ├── check_corrected_weights.py   (5-second sanity check of the weight computation)
+│   ├── seed_study.py            (25-replicate × batch-size study)
+│   ├── stress_tests.py          (t1–t9: coverage, bounds, weight-sanity identity, …)
+│   ├── task8_rare_regime.py     (re-threshold test at p ≈ 10⁻³)
+│   └── synth_rerun_final.py     (Section-3 synthetic example, fixed seeds)
 │
 ├── data/
 │   └── Inputs_for_Final_Script_after_Naive_Simulation/
@@ -80,7 +102,13 @@ jupyter lab
 Run the notebooks in order:
 
 1. **Final_Script_after_Naive_Simulation.ipynb** — pre-IS-simulation setup: PCA, DGSA, MKDE, IS resampling.
-2. **Final_Script_after_IS_Simulation.ipynb** — post-IS-simulation weighting, ESS, and Chebyshev confidence analysis.
+2. **Final_Script_after_IS_Simulation_CORRECTED.ipynb** — post-IS-simulation weighting (corrected), defensive-mixture combined estimator, ESS, and Chebyshev confidence analysis.
+
+Quick verification that the toolbox works (~5 s, checks the weight computation and mixture estimator):
+
+```bash
+cd notebooks && python check_corrected_weights.py
+```
 
 ---
 
@@ -130,15 +158,14 @@ These realizations are the **inputs** to MRST flow simulations that produce leak
 
 ## 📉 Results and Comparison
 
-The IS ensemble achieves the same confidence level as the full Monte Carlo analysis while requiring an order of magnitude fewer forward simulations.
+Across 25 independent replicates, the combined naïve+IS estimator certifies the leakage probability below the risk threshold with a median **≈1.6×** lower total simulation cost than naïve Monte Carlo (≈1.5–2× band; up to ≈3× for favourable batches), with the 95% certification guarantee never violated. The figure below shows the running-mean comparison for the anchor configuration (`figures/Fig4_corrected.png`); the originally archived `figures/Fig_5.png` reflects the v1 analysis and is superseded.
 
 <p align="center">
-  <img src="figures/Fig_5.png" alt="Comparison of NMC and IS convergence" width="950"/>
+  <img src="figures/Fig4_corrected.png" alt="Corrected comparison of NMC and combined naive+IS convergence" width="950"/>
 </p>
 
-**Figure 3. (# 5 in paper) Convergence of Naïve Monte Carlo vs IS-weighted leakage probability with Chebyshev confidence bands.**
-Blue shaded regions represent NMC confidence bounds, while the purple region shows IS uncertainty convergence.
-IS reaches the prescribed safety confidence threshold using **~8× fewer simulations**.
+**Figure 3. Convergence of naïve Monte Carlo vs the combined naïve+IS estimator with Chebyshev confidence bands (anchor configuration).**
+The combined estimator reaches the tolerance at l ≈ 1,415 versus l ≈ 4,241 for naïve MC in this favourable single run, quoted only as an anchor; the replicate-median advantage is ≈1.5–2× at the studied margin.
 
 ---
 
@@ -153,7 +180,7 @@ Input files required to reproduce the workflow are located in:
 
 If you use this repository or reproduce any part of the workflow, please cite:
 
-> **Mantilla-Salas, S., Kloeckner, J., Yin, D. Z., Zechner, M., & Caers, J. (2025).**
+> **Mantilla-Salas, S., Kloeckner, J., Yin, D. Z., Zechner, M., & Caers, J. (2026), version 2.**
 > *Importance Sampling for Rare-Event Estimation under Spatial Uncertainty: Application to Estimating CO₂ Leakage Risk in Carbon Capture and Sequestration.*
 > **Zenodo.** [![DOI](https://zenodo.org/badge/1085533276.svg)](https://doi.org/10.5281/zenodo.17480588)
 
