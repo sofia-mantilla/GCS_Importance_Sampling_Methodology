@@ -7,8 +7,9 @@
 > ## Version 2 (2026)
 > Version 2 revises the importance-weight computation (joint densities evaluated at the
 > sampled points) and adds a defensive-mixture combined estimator with weights bounded by
-> 1/α, a 25-replicate replication study, stress tests, and out-of-sample MRST validation
-> scripts. The canonical workflow is `Final_Script_after_IS_Simulation_CORRECTED.ipynb`
+> 1/α, a 25-replicate replication study, stress tests, and a rare-regime
+> re-threshold experiment; the corrected pipeline was additionally validated with six
+> fresh out-of-sample MRST batches (protocol and results in the paper's Appendix C). The canonical workflow is `Final_Script_after_IS_Simulation_CORRECTED.ipynb`
 > together with `revision_tools.py`; the v1 notebook is retained for archival completeness
 > and its analysis is superseded by this version.
 > Headline results: the 95% certification guarantee was never violated across 25
@@ -126,7 +127,7 @@ The process begins with generating an initial batch of subsurface model realizat
 
 ## 📈 Pipeline Overview
 
-| Step | Description                                                                                                                                                                                                          | Status            |
+| Step | Description                                                                                                                                                                                                          | Notebook          |
 | ---- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------- |
 | 1    | Load model inputs sampled by Naïve Monte Carlo (**m₁: top surfaces**, **m₂: porosity**)                                                                                                                              | Final_Script_after_Naive_Simulation.ipynb|
 | 2    | Load failure/no failure outcomes **h₁⁽ˡ⁾** obtained from forward simulations                                                                                                                                         | Final_Script_after_Naive_Simulation.ipynb|
@@ -180,7 +181,7 @@ Input files required to reproduce the workflow are stored with Git LFS and locat
 
 If you use this repository or reproduce any part of the workflow, please cite:
 
-> **Mantilla-Salas, S., Kloeckner, J., Yin, D. Z., Zechner, M., & Caers, J. (2026), version 2.**
+> **Mantilla Salas, S., Kloeckner, J., Yin, D. Z., Zechner, M., & Caers, J. (2026), version 2.**
 > *Importance Sampling for Rare-Event Estimation under Spatial Uncertainty: Application to Estimating CO₂ Leakage Risk in Carbon Capture and Sequestration.*
 > **Zenodo.** [![DOI](https://zenodo.org/badge/1085533276.svg)](https://doi.org/10.5281/zenodo.17480588)
 
