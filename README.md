@@ -1,7 +1,7 @@
 
 [![DOI](https://zenodo.org/badge/1085533276.svg)](https://doi.org/10.5281/zenodo.17480588)
 ---
-# Importance Sampling for Rare-Event Estimation under Spatial Uncertainty: Application to Estimating CO₂ Leakage Risk in Carbon Capture and Sequestration
+# Importance Sampling for Low Probability Event Estimation under Spatial Uncertainty: Application to Estimating CO₂ Leakage Risk in Carbon Capture and Sequestration
 
 
 > ## Version 2 (2026)
@@ -21,7 +21,7 @@
 ---
 
 This repository reproduces the open-source workflow accompanying the paper  
-**_“Importance Sampling for Rare-Event Estimation under Spatial Uncertainty: Application to Estimating CO₂ Leakage Risk in Carbon Capture and Sequestration.”_**
+**_“Importance Sampling for Low Probability Event Estimation under Spatial Uncertainty: Application to Estimating CO₂ Leakage Risk in Carbon Capture and Sequestration.”_**
 
 It provides a **reproducible Jupyter-based implementation** of a methodology for **importance sampling under spatial uncertainty**, designed for cases where uncertain inputs are **high-dimensional spatial fields** rather than low-dimensional parameter vectors. The workflow combines **Naïve Monte Carlo (NMC)**, **PCA-based dimensionality reduction**, **DGSA sensitivity screening**, **MKDE-based proposal construction**, and **importance weighting with Chebyshev confidence bounds** to estimate rare-event probabilities more efficiently.
 
@@ -182,7 +182,7 @@ Input files required to reproduce the workflow are stored with Git LFS and locat
 If you use this repository or reproduce any part of the workflow, please cite:
 
 > **Mantilla Salas, S., Kloeckner, J., Yin, D. Z., Zechner, M., & Caers, J. (2026), version 2.**
-> *Importance Sampling for Rare-Event Estimation under Spatial Uncertainty: Application to Estimating CO₂ Leakage Risk in Carbon Capture and Sequestration.*
+> *Importance Sampling for Low Probability Event Estimation under Spatial Uncertainty: Application to Estimating CO₂ Leakage Risk in Carbon Capture and Sequestration.*
 > **Zenodo.** [![DOI](https://zenodo.org/badge/1085533276.svg)](https://doi.org/10.5281/zenodo.17480588)
 
 ---
