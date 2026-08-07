@@ -47,34 +47,30 @@ The final output quantifies how many fewer simulations are required by the combi
 
 GCS_IS_Folder/
 ├── notebooks/
-│   ├── Final_Script_after_Naive_Simulation.ipynb
-│   ├── Final_Script_after_IS_Simulation.ipynb          (v1 — superseded; see note in first cell)
-│   ├── Final_Script_after_IS_Simulation_CORRECTED.ipynb  (v2 — canonical)
-│   ├── revision_tools.py        (corrected weights, defensive mixture, variance report, bounds)
+│   ├── Final_Script_after_Naive_Simulation.ipynb        (step 1 — naïve batch, PCA, DGSA, MKDE, IS resampling)
+│   ├── Final_Script_after_IS_Simulation_CORRECTED.ipynb (step 2, v2 — canonical weighting & certification)
+│   ├── Final_Script_after_IS_Simulation.ipynb           (v1 — superseded; see note in its first cell)
+│   ├── revision_tools.py            (corrected weights, defensive mixture, variance report, bounds)
 │   ├── check_corrected_weights.py   (5-second sanity check of the weight computation)
-│   ├── seed_study.py            (25-replicate × batch-size study)
-│   ├── stress_tests.py          (t1–t9: coverage, bounds, weight-sanity identity, …)
-│   ├── task8_rare_regime.py     (re-threshold test at p ≈ 10⁻³)
-│   └── synth_rerun_final.py     (Section-3 synthetic example, fixed seeds)
+│   ├── seed_study.py                (25-replicate × batch-size study)
+│   ├── seed_study_results.csv       (its output)
+│   ├── stress_tests.py              (t1–t9: coverage, bounds, weight-sanity identity, …)
+│   ├── task8_rare_regime.py         (re-threshold test at p ≈ 10⁻³)
+│   ├── test_dgsa_selection.py       (h₁-only vs h₁+h₂ DGSA screening)
+│   └── synth_rerun_final.py         (synthetic illustrative example, fixed seeds)
 │
-├── data/
-│   └── Inputs_for_Final_Script_after_Naive_Simulation/
+├── data/                            (stored with Git LFS — see How to Run)
+│   ├── Inputs_for_Final_Script_after_Naive_Simulation/
 │   └── Inputs_for_Final_Script_after_IS_Simulation/
 │
-├── figures/
-│   ├── Fig_1.png
-│   ├── Fig_2.png
-│   └── Fig_5.png
-│
-├── GDSA_Light/
-│
+├── figures/                         (workflow, realizations, and corrected result figures)
+├── DGSA_Light/                      (distance-based global sensitivity analysis package)
 ├── requirements.txt
-├── .gitignore
+├── setup.py
+├── CITATION.cff
+├── RELEASE_NOTES_v2.md
+├── LICENSE.txt
 └── README.md
-└── .vscode/
-└── .gitattributes
-└── setup.py
-
 ````
 
 ---
@@ -82,6 +78,10 @@ GCS_IS_Folder/
 ## ⚙️ How to Run
 
 ### 1️⃣ Clone the repository
+The `data/` files are stored with **Git LFS**, so install it once before cloning
+(`brew install git-lfs` on macOS or `apt install git-lfs` on Linux, then `git lfs install`).
+If you cloned without it, run `git lfs pull` inside the repo to fetch the data.
+
 ```bash
 git clone https://github.com/sofia-mantilla/GCS_Importance_Sampling_Methodology.git
 cd GCS_Importance_Sampling_Methodology
@@ -119,8 +119,8 @@ cd notebooks && python check_corrected_weights.py
        alt="Workflow for estimating CO₂ leakage probability" width="950"/>
 </p>
 
-**Figure 1. (#2 in paper) Workflow for estimating CO₂ leakage probability with Naïve Monte Carlo (MC) and Importance Sampling (IS).**
-The process begins with generating an initial batch of subsurface model realizations **m⁽ˡ⁾** via naïve MC. Each realization is forward simulated to obtain prediction variables **h⁽ˡ⁾**, from which the running leakage probability **p̂ₙ** and Chebyshev confidence bands are computed. If the desired confidence interval relative to the prescribed safety threshold **p_risk** is not reached, evaluate whether additional naïve MC simulations (**L_add**) are feasible. If not, IS is applied by constructing an alternative distribution **g(m)** that focuses sampling on leakage-prone scenarios (**h₁⁽ˡ⁾ = 1**). IS samples are reweighted to recover unbiased estimates, and the effective sample size (ESS) is tracked in the subsequent stage.
+**Figure 1 (Fig. 2 in the paper). Workflow for estimating CO₂ leakage probability with Naïve Monte Carlo (MC) and Importance Sampling (IS).**
+The process begins with generating an initial batch of subsurface model realizations **m⁽ˡ⁾** via naïve MC. Each realization is forward simulated to obtain prediction variables **h⁽ˡ⁾**, from which the running leakage probability **p̂ₙ** and Chebyshev confidence bands are computed. If the desired confidence interval relative to the prescribed safety threshold **p_risk** is not reached, evaluate whether additional naïve MC simulations (**L_add**) are feasible. If not, IS is applied by constructing an alternative distribution **g(m)** that focuses sampling on leakage-prone scenarios (**h₁⁽ˡ⁾ = 1**). IS samples are reweighted to recover consistent estimates of the target distribution, and the effective sample size (ESS) is tracked in the subsequent stage.
 
 ---
 
@@ -138,9 +138,9 @@ The process begins with generating an initial batch of subsurface model realizat
 | 5.3  | Fit MKDE (Multivariate Kernel Density Estimation) on sensitive PC scores to construct the IS alternative distribution **g(m)**                                                                                       | Final_Script_after_Naive_Simulation.ipynb|
 | 5.4  | Resample new PC scores from IS alternative distribution **g(m)**                                                                                                                                                     | Final_Script_after_Naive_Simulation.ipynb|
 | 5.5  | Reconstruct model variables (**m₁′**, **m₂′**) with the resampled PC scores                                                                                                                                          | Final_Script_after_Naive_Simulation.ipynb|
-| 6    | Compute IS weights                                                                                                                                                                                                   | Final_Script_after_IS_Simulation.ipynb |
-| 7    | Estimate IS running leakage probability and Chebyshev band using ESS                                                                                                                                                 | Final_Script_after_IS_Simulation.ipynb |
-| 8    | Check if desired confidence interval relative to the prescribed safety threshold **p_risk** has been reached                                                                                                         | Final_Script_after_IS_Simulation.ipynb |
+| 6    | Compute IS weights                                                                                                                                                                                                   | Final_Script_after_IS_Simulation_CORRECTED.ipynb |
+| 7    | Estimate IS running leakage probability and Chebyshev band using ESS                                                                                                                                                 | Final_Script_after_IS_Simulation_CORRECTED.ipynb |
+| 8    | Check if desired confidence interval relative to the prescribed safety threshold **p_risk** has been reached                                                                                                         | Final_Script_after_IS_Simulation_CORRECTED.ipynb |
 
 ---
 
@@ -150,7 +150,7 @@ The process begins with generating an initial batch of subsurface model realizat
   <img src="figures/Fig_1.png" alt="Example of structural and porosity realizations" width="950"/>
 </p>
 
-**Figure 2. (#1 in paper)** Example reservoir model realizations used to evaluate CO₂ leakage risk.  
+**Figure 2 (Fig. 1 in the paper).** Example reservoir model realizations used to evaluate CO₂ leakage risk.  
 Panels show variations in **top-surface structure** and **porosity** across different Naïve Monte Carlo (MC) samples.  
 These realizations are the **inputs** to MRST flow simulations that produce leakage/saturation outcomes; this notebook analyzes those **simulation outputs** rather than executing the simulations themselves.
 
@@ -164,14 +164,14 @@ Across 25 independent replicates, the combined naïve+IS estimator certifies the
   <img src="figures/Fig4_corrected.png" alt="Corrected comparison of NMC and combined naive+IS convergence" width="950"/>
 </p>
 
-**Figure 3. Convergence of naïve Monte Carlo vs the combined naïve+IS estimator with Chebyshev confidence bands (anchor configuration).**
-The combined estimator reaches the tolerance at l ≈ 1,415 versus l ≈ 4,241 for naïve MC in this favourable single run, quoted only as an anchor; the replicate-median advantage is ≈1.5–2× at the studied margin.
+**Figure 3 (cf. Fig. 8b in the paper). Convergence of naïve Monte Carlo vs the combined naïve+IS estimator with Chebyshev confidence bands (anchor configuration).**
+The combined estimator reaches the tolerance at n ≈ 1,415 versus n ≈ 4,241 for naïve MC in this favourable single run, quoted only as an anchor; the replicate-median advantage is ≈1.5–2× at the studied margin.
 
 ---
 
 ## 📦 Data
 
-Input files required to reproduce the workflow are located in:
+Input files required to reproduce the workflow are stored with Git LFS and located in:
 `data/Inputs_for_Final_Script_after_IS_Simulation/` and `data/Inputs_for_Final_Script_after_Naive_Simulation/`.
 
 ---
